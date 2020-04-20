@@ -7,7 +7,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TreserJSPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  entry: [path.resolve('src', 'index.js')],
+  // entry: [path.resolve('src', 'index.js')],
+  entry: ['babel-polyfill', path.resolve('src', 'index.js')],
   mode: "development",
   output: {
     filename: '[name].[chunkhash].js',
