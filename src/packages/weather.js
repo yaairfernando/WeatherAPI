@@ -4,7 +4,12 @@ import { setBackGround ,
         DOMGetInputValue, 
         DOMDisplayMessage, 
         DOMDisplayWeather,
-        DOMClearForm } from './dom';
+        DOMClearForm,
+        DOMChangeTemp,
+        DOMGetElement } from './dom';
+
+
+let Initialtemp;
 
 const fetchData = async (e) => {
   e.preventDefault();
@@ -13,15 +18,22 @@ const fetchData = async (e) => {
     setSpinner();
     try {
       let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=da0d8220f15ccac543248b9fffdbbba7`);
-      let data = await response.json()
-      console.log(data);
+      let data = await response.json();
       DOMDisplayWeather(createObject(data));
       fetchBackground(data.weather[0].main);
-      // DOMClearForm();
+      DOMGetElement('#form').reset();
     } catch (error) {
       setDefatulBackground();
       DOMDisplayMessage('City not found.. Try again.', 'danger');
     }
+  }
+}
+
+const toggleTemp = (e) => {
+  if(e.target.getAttribute('id') === 'celsius') {
+    DOMChangeTemp(Initialtemp, e.target);
+  } else {
+    DOMChangeTemp((Initialtemp * 9/5 + 32), e.target)
   }
 }
 
@@ -48,6 +60,7 @@ const createObject = (obj) => {
     speed: obj.wind.speed,
     sys: obj.sys.country
   }
+  Initialtemp = weather.temp;
   return weather;
 }
 
@@ -63,4 +76,4 @@ const fetchBackground = async (search) => {
   },200)
 }
 
-export { fetchData, fetchBackground };
+export { fetchData, fetchBackground, toggleTemp };

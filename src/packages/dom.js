@@ -1,4 +1,4 @@
-import { fetchData } from "./weather";
+import { fetchData, toggleTemp } from "./weather";
 
 let container = document.querySelector('#container')
 
@@ -64,6 +64,12 @@ const DOMClearForm = () => {
   DOMGetElement('.form').reset();
 }
 
+const DOMChangeTemp = (temp, target) => {
+  DOMGetElement('.tempNum span').innerHTML = temp;
+  DOMGetElement('.active').classList.remove('active');
+  target.classList.add('active');
+}
+
 const DOMDisplayWeather = (weather) => {
   if (DOMGetElement('.weather')) {
     DOMGetElement('.weather').remove();
@@ -89,17 +95,18 @@ const DOMDisplayWeather = (weather) => {
     </div>
     <div class="temp">
       <div class="btns">
-        <a href="#">F°</a>
-        <a href="#" class="active">C°</a>
+        <a href="#" id="fahrenheit">F°</a>
+        <a href="#" class="active" id="celsius">C°</a>
       </div>
-      <div>
+      <div class="tempNum">
         <span>${weather.temp}</span>
       </div>
     </div>
   </div>
   `
   container.insertAdjacentHTML("beforeend", div);
-  // DOMClearForm();
+  document.querySelector('#fahrenheit').addEventListener('click', (e) => toggleTemp(e))
+  document.querySelector('#celsius').addEventListener('click', (e) => toggleTemp(e))
 }
 
 
@@ -110,4 +117,6 @@ export { setBackGround,
           DOMGetInputValue, 
           DOMDisplayMessage, 
           DOMDisplayWeather,
-          DOMClearForm }
+          DOMClearForm,
+          DOMChangeTemp,
+          DOMGetElement }

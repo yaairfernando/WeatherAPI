@@ -126,6 +126,7 @@ body {
   background: #ccc;
   width: 50rem;
   height: 40rem;
+  z-index: 30;
 
   h1 {
     text-transform: uppercase;
@@ -143,6 +144,8 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-top: 3rem;
+    border-top: 1px solid #999;
 
     .btns {
       display: flex;
@@ -151,15 +154,15 @@ body {
       a {
         flex: 0 0 50%;
         font-size: 2rem;
-        
+        text-decoration: none;
+        transition: all 0.2s ease-in;
+
         &:hover {
-          font-size: 4rem;
+          background-color: rgb(10, 10, 10);
+          color: #fff;
+          cursor: pointer;
         }
       }
-      
-      // a:hover {
-      //   background-color: rgb(10, 10, 10);
-      // }
 
       a.active {
         background-color: rgb(10, 10, 10);
@@ -172,7 +175,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1rem 0;
+      padding: 3rem 0;
 
       span {
         font-size: 3rem;
