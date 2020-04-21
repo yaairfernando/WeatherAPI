@@ -1,13 +1,36 @@
-import { setBackGround , setSpinner, setDefatulBackground} from './dom';
+import { setBackGround , 
+        setSpinner, 
+        setDefatulBackground, 
+        DOMGetInputValue, 
+        DOMDisplayMessage, 
+        DOMDisplayWeather,
+        DOMClearForm } from './dom';
 
-const fetchData = async (location) => {
-  setSpinner();
-  let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=da0d8220f15ccac543248b9fffdbbba7`);
-  let data = await response.json()
-  console.log(data);
-  createObject(data);
-  fetchBackground(data.weather[0].main)
-  
+const fetchData = async (e) => {
+  e.preventDefault();
+  let location  = DOMGetInputValue('#location');
+  if (validateInput(location)) {
+    setSpinner();
+    try {
+      let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=da0d8220f15ccac543248b9fffdbbba7`);
+      let data = await response.json()
+      console.log(data);
+      DOMDisplayWeather(createObject(data));
+      fetchBackground(data.weather[0].main);
+      // DOMClearForm();
+    } catch (error) {
+      setDefatulBackground();
+      DOMDisplayMessage('City not found.. Try again.', 'danger');
+    }
+  }
+}
+
+const validateInput = (input) => {
+  if (!input || input.length < 2) {
+    DOMDisplayMessage("Please enter a valid location!", "danger")
+    return false;
+  }
+  return true;
 }
 
 const createObject = (obj) => {
@@ -25,13 +48,13 @@ const createObject = (obj) => {
     speed: obj.wind.speed,
     sys: obj.sys.country
   }
-  console.log(weather);
+  return weather;
 }
 
 const fetchBackground = async (search) => {
   setTimeout(async () => {
     try {
-      let response = await fetch(`https://source.unsplasddh.com/featured/?${search}`);
+      let response = await fetch(`https://source.unsplash.com/featured/?${search}`);
       const data = await response.blob();
       setBackGround(data);
     } catch (error) {

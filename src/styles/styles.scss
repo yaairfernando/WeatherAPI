@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 *,
 *::before,
 *::after {
@@ -13,12 +15,18 @@ html {
 
 body {
   margin: 1rem;
+  font-family: 'Comic Neue', cursive;
 }
 
 #container {
   height: calc(100vh - 20px);
   position: relative;
-
+  transition: all 0.3s ease-in-out;
+  
+  &::before {
+    width: 50%;
+    transform: scale(0.5);
+  }
 }
 
 #container.after {
@@ -43,6 +51,153 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 4rem;
+}
+
+#form {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  background-color: rgba(255,255,255,0.8);
+  color: #333;
+  padding: 3rem 4rem;
+  border-radius: 3px;
+  box-shadow: 0 1rem 2rem rgba(255,255,255,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 50rem;
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+ 
+
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 1rem;
+      border: none;
+      padding: 1rem 2rem;
+      outline: none;
+      font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+      border: none;
+      padding: 1rem 2rem;
+      color: #fff;
+      cursor: pointer;
+      background: #333;
+      font-size: 1.5rem;
+    }
+  }
+} 
+
+.msg {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  width: 50rem;
+  background: #ccc;
+  padding: 1rem;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  color: #333;
+  font-size: 2rem;
+  text-align: center;
+  box-shadow: 0rem 0rem 4rem rgba(255, 255, 255);
+}
+
+.weather {
+  position: absolute;
+  top: 64%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem 3rem;
+  background: #ccc;
+  width: 50rem;
+  height: 40rem;
+
+  h1 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .icon {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+  }
+
+  .temp {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .btns {
+      display: flex;
+      text-align: center;
+
+      a {
+        flex: 0 0 50%;
+        font-size: 2rem;
+        
+        &:hover {
+          font-size: 4rem;
+        }
+      }
+      
+      // a:hover {
+      //   background-color: rgb(10, 10, 10);
+      // }
+
+      a.active {
+        background-color: rgb(10, 10, 10);
+        color: #fff;
+      }
+
+    }
+
+    & > div:nth-child(2) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 0;
+
+      span {
+        font-size: 3rem;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    text-align: center;
+
+    .right, 
+    .left {
+      padding: 1rem 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 50%;
+    }
+
+    span {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      
+    }
+  }
 }
 
 @keyframes rotate {
