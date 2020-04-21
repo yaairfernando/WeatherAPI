@@ -1,42 +1,17 @@
-import { fetchData, toggleTemp } from "./weather";
+import { fetchData, toggleTemp } from './weather';
 
-let container = document.querySelector('#container')
+const container = document.querySelector('#container');
 
-const setBackGround = (background) => {
-  container.style.background = `url("${window.URL.createObjectURL(background)}") top/cover`
-  container.classList.add('after');
-  DOMGetElement('.fa-spinner').remove();
-  if (!DOMGetElement('#form')) {
-    displayForm();
-  }
-}
-
-const DOMDisplayMessage = (msg, type) => {
-  let error = `
-    <div class="${type} msg">
-      <span>${msg}</span>
-    </div>
-  `
-  container.insertAdjacentHTML("beforeend", error);
-  DOMDismisMessage();
-}
+const DOMGetElement = (selector) => document.querySelector(selector);
 
 const DOMDismisMessage = () => {
   setTimeout(() => {
     DOMGetElement('.msg').remove();
   }, 3000);
-}
-
-const DOMGetElement = (selector) => {
-  return document.querySelector(selector);
-}
-
-const setSpinner = () => {
-  container.insertAdjacentHTML("beforeend", '<i class="fas fa-spinner"></i>');
-}
+};
 
 const displayForm = () => {
-  let form = `
+  const form = `
   <form id="form">
     <h2>Find the weather of your city!!</h2>
     <div class="form-group">
@@ -44,37 +19,58 @@ const displayForm = () => {
       <input type="submit" value="Search">
     </div>
   </form>
-  `
-  container.innerHTML = form
-  document.querySelector('#form').addEventListener('submit', (e) => fetchData(e))
-}
+  `;
+  container.innerHTML = form;
+  document
+    .querySelector('#form')
+    .addEventListener('submit', (e) => fetchData(e));
+};
 
-const DOMGetInputValue = (selector) => {
-  return document.querySelector(selector).value
-}
+const setBackGround = (background) => {
+  container.style.background = `url("${window.URL.createObjectURL(
+    background,
+  )}") top/cover`;
+  container.classList.add('after');
+  DOMGetElement('.fa-spinner').remove();
+  if (!DOMGetElement('#form')) {
+    displayForm();
+  }
+};
+
+const DOMDisplayMessage = (msg, type) => {
+  const error = `
+    <div class="${type} msg">
+      <span>${msg}</span>
+    </div>
+  `;
+  container.insertAdjacentHTML('beforeend', error);
+  DOMDismisMessage();
+};
+
+const setSpinner = () => {
+  container.insertAdjacentHTML('beforeend', '<i class="fas fa-spinner"></i>');
+};
+
+const DOMGetInputValue = (selector) => document.querySelector(selector).value;
 
 const setDefatulBackground = () => {
   container.classList.add('default');
   container.classList.add('after');
-  container.innerHTML = ''
+  container.innerHTML = '';
   displayForm();
-}
-
-const DOMClearForm = () => {
-  DOMGetElement('.form').reset();
-}
+};
 
 const DOMChangeTemp = (temp, target) => {
   DOMGetElement('.tempNum span').innerHTML = temp;
   DOMGetElement('.active').classList.remove('active');
   target.classList.add('active');
-}
+};
 
 const DOMDisplayWeather = (weather) => {
   if (DOMGetElement('.weather')) {
     DOMGetElement('.weather').remove();
   }
-  let div = `
+  const div = `
   <div class="weather">
     <h1 class="title">${weather.name}</h1>
     <div class="content">
@@ -103,20 +99,24 @@ const DOMDisplayWeather = (weather) => {
       </div>
     </div>
   </div>
-  `
-  container.insertAdjacentHTML("beforeend", div);
-  document.querySelector('#fahrenheit').addEventListener('click', (e) => toggleTemp(e))
-  document.querySelector('#celsius').addEventListener('click', (e) => toggleTemp(e))
-}
+  `;
+  container.insertAdjacentHTML('beforeend', div);
+  document
+    .querySelector('#fahrenheit')
+    .addEventListener('click', (e) => toggleTemp(e));
+  document
+    .querySelector('#celsius')
+    .addEventListener('click', (e) => toggleTemp(e));
+};
 
-
-export { setBackGround, 
-          setSpinner, 
-          setDefatulBackground, 
-          displayForm, 
-          DOMGetInputValue, 
-          DOMDisplayMessage, 
-          DOMDisplayWeather,
-          DOMClearForm,
-          DOMChangeTemp,
-          DOMGetElement }
+export {
+  setBackGround,
+  setSpinner,
+  setDefatulBackground,
+  displayForm,
+  DOMGetInputValue,
+  DOMDisplayMessage,
+  DOMDisplayWeather,
+  DOMChangeTemp,
+  DOMGetElement,
+};

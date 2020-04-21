@@ -1,7 +1,8 @@
-require("babel-polyfill");
-import './styles/styles.scss'
-import { fetchData, fetchBackground } from './packages/weather';
+import './styles/styles.scss';
+import { fetchBackground } from './packages/weather';
 import { setSpinner } from './packages/dom';
 
+require('babel-polyfill');
+
 setSpinner();
-fetchBackground('cloudy')
+fetchBackground('cloudy');
