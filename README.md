@@ -41,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Screenshot Image](assets/logoRepo.PNG)
+![Screenshot Image](src/assets/logoRepo.PNG)
 
 ### Built With
 The project was developed using these tools and technologies.
