@@ -1,3 +1,5 @@
+/* eslint import/no-unresolved: [2, { ignore: ['\webpack || mini-css-extract-plugin'] }] */
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
