@@ -59,6 +59,7 @@ const fetchData = async (e) => {
       DOMGetElement('#form').reset();
     } catch (error) {
       setDefatulBackground();
+      DOMGetElement('#form').reset();
       DOMDisplayMessage('City not found.. Try again.', 'danger');
     }
   }

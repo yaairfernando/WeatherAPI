@@ -53,8 +53,10 @@ const DOMGetInputValue = (selector) => document.querySelector(selector).value;
 const setDefatulBackground = () => {
   container.classList.add('default');
   container.classList.add('after');
-  container.innerHTML = '';
-  displayForm();
+  DOMGetElement('.fa-spinner').remove();
+  if (!DOMGetElement('#form')) {
+    displayForm();
+  }
 };
 
 const DOMChangeTemp = (temp, target) => {
