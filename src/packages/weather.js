@@ -5,12 +5,8 @@ import {
   DOMGetInputValue,
   DOMDisplayMessage,
   DOMDisplayWeather,
-  DOMChangeTemp,
   DOMGetElement,
 } from './dom';
-
-
-let Initialtemp;
 
 const validateInput = (input) => {
   if (!input || input.length < 2) {
@@ -35,7 +31,6 @@ const createObject = (obj) => {
     speed: obj.wind.speed,
     sys: obj.sys.country,
   };
-  Initialtemp = weather.temp;
   return weather;
 };
 
@@ -69,13 +64,5 @@ const fetchData = async (e) => {
   }
 };
 
-const toggleTemp = (e) => {
-  if (e.target.getAttribute('id') === 'celsius') {
-    DOMChangeTemp(Initialtemp, e.target);
-  } else {
-    DOMChangeTemp(((Initialtemp * (9 / 5)) + 32), e.target);
-  }
-};
 
-
-export { fetchData, fetchBackground, toggleTemp };
+export { fetchData, fetchBackground };

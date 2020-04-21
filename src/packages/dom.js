@@ -1,4 +1,4 @@
-import { fetchData, toggleTemp } from './weather';
+let InitialTemp;
 
 const container = document.querySelector('#container');
 
@@ -21,9 +21,6 @@ const displayForm = () => {
   </form>
   `;
   container.innerHTML = form;
-  document
-    .querySelector('#form')
-    .addEventListener('submit', (e) => fetchData(e));
 };
 
 const setBackGround = (background) => {
@@ -66,6 +63,15 @@ const DOMChangeTemp = (temp, target) => {
   target.classList.add('active');
 };
 
+const toogleTemp = (e, initial) => {
+  if (e.target.getAttribute('id') === 'celsius') {
+    DOMChangeTemp(initial, e.target);
+  } else {
+    DOMChangeTemp(((initial * (9 / 5)) + 32), e.target);
+  }
+};
+
+
 const DOMDisplayWeather = (weather) => {
   if (DOMGetElement('.weather')) {
     DOMGetElement('.weather').remove();
@@ -100,13 +106,14 @@ const DOMDisplayWeather = (weather) => {
     </div>
   </div>
   `;
+  InitialTemp = weather.temp;
   container.insertAdjacentHTML('beforeend', div);
   document
     .querySelector('#fahrenheit')
-    .addEventListener('click', (e) => toggleTemp(e));
+    .addEventListener('click', (e) => toogleTemp(e, InitialTemp));
   document
     .querySelector('#celsius')
-    .addEventListener('click', (e) => toggleTemp(e));
+    .addEventListener('click', (e) => toogleTemp(e, InitialTemp));
 };
 
 export {
