@@ -9,7 +9,7 @@
     "start-webpack": "webpack --mode=development --watch",
     "server": "npm run clean && webpack --mode=development --watch",
     "clean": "rimraf dist",
-    "build": "webpack --mode=production"
+    "build": "set NODE_ENV=production&&npm run clean&&webpack -p"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +43,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "express": "^4.17.1"
   }
 }
