@@ -5,11 +5,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "concurrently --kill-others npm:start-* npm run clean",
-    "start-webpack": "webpack --mode=development --watch",
-    "server": "npm run clean && webpack --mode=development --watch",
-    "clean": "rimraf dist",
-    "build": "set NODE_ENV=production&&npm run clean&&webpack -p"
+    "build": "set NODE_ENV=production&&npm run clean&&webpack -p",
+    "clean": "rimraf dist"
   },
   "keywords": [],
   "author": "",
