@@ -1,5 +1,7 @@
 require("babel-polyfill");
-import fetchData from './packages/weather';
+import './styles/styles.scss'
+import { fetchData, fetchBackground } from './packages/weather';
+import { setSpinner } from './packages/dom';
 
-
-fetchData('Richmond')
+setSpinner();
+fetchBackground('cloudy')
