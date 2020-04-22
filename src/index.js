@@ -10,4 +10,4 @@ setTimeout(() => {
   document
     .querySelector('#form')
     .addEventListener('submit', (e) => fetchData(e));
-}, 1000);
+}, 2000);

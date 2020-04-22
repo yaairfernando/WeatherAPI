@@ -1,5 +1,3 @@
-let InitialTemp;
-
 const container = document.querySelector('#container');
 
 const DOMGetElement = (selector) => document.querySelector(selector);
@@ -59,20 +57,6 @@ const setDefatulBackground = () => {
   }
 };
 
-const DOMChangeTemp = (temp, target) => {
-  DOMGetElement('.tempNum span').innerHTML = temp;
-  DOMGetElement('.active').classList.remove('active');
-  target.classList.add('active');
-};
-
-const toogleTemp = (e, initial) => {
-  if (e.target.getAttribute('id') === 'celsius') {
-    DOMChangeTemp(initial, e.target);
-  } else {
-    DOMChangeTemp(((initial * (9 / 5)) + 32), e.target);
-  }
-};
-
 
 const DOMDisplayWeather = (weather) => {
   if (DOMGetElement('.weather')) {
@@ -108,14 +92,13 @@ const DOMDisplayWeather = (weather) => {
     </div>
   </div>
   `;
-  InitialTemp = weather.temp;
   container.insertAdjacentHTML('beforeend', div);
+};
+
+const addListener = (selector, func, parameters) => {
   document
-    .querySelector('#fahrenheit')
-    .addEventListener('click', (e) => toogleTemp(e, InitialTemp));
-  document
-    .querySelector('#celsius')
-    .addEventListener('click', (e) => toogleTemp(e, InitialTemp));
+    .querySelector(selector)
+    .addEventListener('click', () => func(parameters.units, parameters.loc));
 };
 
 export {
@@ -126,6 +109,6 @@ export {
   DOMGetInputValue,
   DOMDisplayMessage,
   DOMDisplayWeather,
-  DOMChangeTemp,
   DOMGetElement,
+  addListener,
 };

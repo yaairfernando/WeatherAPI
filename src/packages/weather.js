@@ -6,6 +6,7 @@ import {
   DOMDisplayMessage,
   DOMDisplayWeather,
   DOMGetElement,
+  addListener,
 } from './dom';
 
 const validateInput = (input) => {
@@ -37,7 +38,9 @@ const createObject = (obj) => {
 const fetchBackground = async (search) => {
   setTimeout(async () => {
     try {
-      const response = await fetch(`https://source.unsplash.com/featured/?${search}`);
+      const response = await fetch(
+        `https://source.unsplash.com/featured/?${search}`,
+      );
       const data = await response.blob();
       setBackGround(data);
     } catch (error) {
@@ -46,22 +49,54 @@ const fetchBackground = async (search) => {
   }, 200);
 };
 
-const fetchData = async (e) => {
+const updateData = async (units = 'metric', loc = '') => {
+  setSpinner();
+  try {
+    const response = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${loc}&units=${units}&APPID=da0d8220f15ccac543248b9fffdbbba7`,
+    );
+    const data = await response.json();
+    DOMDisplayWeather(createObject(data));
+    fetchBackground(data.weather[0].main);
+    DOMGetElement('#form').reset();
+    addListener('#fahrenheit', updateData, { units: 'imperial', loc: data.name });
+    addListener('#celsius', updateData, { units: 'metric', loc: data.name });
+  } catch (error) {
+    setDefatulBackground();
+    DOMGetElement('#form').reset();
+    DOMDisplayMessage('City not found.. Try again.', 'danger');
+  }
+};
+
+const addListeners = (loc) => {
+  addListener('#fahrenheit', updateData, { units: 'imperial', loc });
+  addListener('#celsius', updateData, { units: 'metric', loc });
+};
+
+const makeRequest = async (units, location) => {
+  setSpinner();
+  try {
+    const response = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=da0d8220f15ccac543248b9fffdbbba7`,
+    );
+    const data = await response.json();
+    DOMDisplayWeather(createObject(data));
+    fetchBackground(data.weather[0].main);
+    DOMGetElement('#form').reset();
+    addListeners(data.name);
+  } catch (error) {
+    setDefatulBackground();
+    DOMGetElement('#form').reset();
+    DOMDisplayMessage('City not found.. Try again.', 'danger');
+  }
+};
+
+
+const fetchData = async (e, units = 'metric') => {
   e.preventDefault();
   const location = DOMGetInputValue('#location');
   if (validateInput(location)) {
-    setSpinner();
-    try {
-      const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=da0d8220f15ccac543248b9fffdbbba7`);
-      const data = await response.json();
-      DOMDisplayWeather(createObject(data));
-      fetchBackground(data.weather[0].main);
-      DOMGetElement('#form').reset();
-    } catch (error) {
-      setDefatulBackground();
-      DOMGetElement('#form').reset();
-      DOMDisplayMessage('City not found.. Try again.', 'danger');
-    }
+    makeRequest(units, location);
   }
 };
 
