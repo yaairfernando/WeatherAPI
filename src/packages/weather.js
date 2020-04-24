@@ -53,7 +53,7 @@ const updateData = async (units = 'metric', loc = '') => {
   setSpinner();
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${loc}&units=${units}&APPID=da0d8220f15ccac543248b9fffdbbba7`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${loc}&units=${units}&APPID=da0d8220f15ccac543248b9fffdbbba7`,
     );
     const data = await response.json();
     DOMDisplayWeather(createObject(data));
