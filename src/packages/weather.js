@@ -18,7 +18,7 @@ const validateInput = (input) => {
 };
 
 const createObject = (obj) => {
-  const urlIcon = `http://openweathermap.org/img/w/${obj.weather[0].icon}.png`;
+  const urlIcon = `https://openweathermap.org/img/w/${obj.weather[0].icon}.png`;
   const weather = {
     name: obj.name,
     lon: obj.coord.lon,
