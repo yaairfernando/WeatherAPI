@@ -77,7 +77,7 @@ const makeRequest = async (units, location) => {
   setSpinner();
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=da0d8220f15ccac543248b9fffdbbba7`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=da0d8220f15ccac543248b9fffdbbba7`,
     );
     const data = await response.json();
     DOMDisplayWeather(createObject(data));
